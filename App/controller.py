@@ -126,3 +126,11 @@ def getBestMovies (catalog, number):
         lt.addLast (bestmovies, movie)
     return bestmovies
 
+def getWorstMovies (catalog, number):
+    movies = catalog['movies']
+    worstmovies = lt.newList()
+    largo=lt.size(movies)
+    for cont in range (largo-number, largo):
+        movie = lt.getElement (movies, cont)
+        lt.addLast (worstmovies, movie["title"])
+    return worstmovies

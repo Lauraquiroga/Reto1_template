@@ -81,5 +81,20 @@ def getMoviesByDirector (catalog, dir_name):
     """
     Retorna las peliculas a partir del nombre del director
     """
+    director_movies=lt.newList(datastructure)
+    nombre_director={"name":dir_name, ""}
+    
+    for director in catalog["director"]:
+        if dir_name==director["name"]:
+
+            lt.addLast
+
     return []
+
+def getPositiveVotes (peliculas):
+    positivos = 0
+    for movie in peliculas:
+        if movie["vote_average"]>=6:
+            positivos+=1
+    return positivos
 

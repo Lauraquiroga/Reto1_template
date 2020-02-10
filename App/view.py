@@ -40,6 +40,7 @@ def printMenu():
     print("2- Peliculas con mejores votaciones")
     print("3- Peliculas por Director")
     print("4- Requerimiento 2 ... etc")
+    print("5- Cargar peores pel+iculas")
     print("0- Salir")
 
 
@@ -99,6 +100,18 @@ while True:
     elif int(inputs[0])==4:
         label = input ("Nombre del Actor a buscar: ")
         pass
+
+    elif int(inputs[0])==5:
+        number = input ("Buscando las TOP ?: ")
+        movies = controller.getWorstMovies (catalog, int(number))
+        print (movies)
+
+    elif int(input[0])==6:
+        director = input("Ingrese el nombre del director")
+        peliculas = controller.getMoviesByDirector (catalog, director)
+        positivos = controller.getPositiveVotes (peliculas)
+        print (positivos)
+
     else:
         sys.exit(0)
 sys.exit(0)
