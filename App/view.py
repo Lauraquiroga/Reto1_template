@@ -40,7 +40,9 @@ def printMenu():
     print("2- Peliculas con mejores votaciones")
     print("3- Peliculas por Director")
     print("4- Requerimiento 2 ... etc")
-    print("5- Cargar peores pel+iculas")
+    print("5- Cargar peores películas")
+    print("6- Número de votos positivos por director: ")
+    print("7- 10 películas con mayor votos totales y promedio, X peliculas con menos votos totales y promedio:  ")
     print("0- Salir")
 
 
@@ -91,9 +93,11 @@ while True:
         movies = controller.getBestMovies (catalog, int(number))
         printBestMovies (movies)
 
-    elif int(inputs[0])==3:
-        dir_name = input("Nombre del director a buscar: ")
-        movies = controller.getMoviesByDirector (catalog, dir_name)
+    elif int(inputs[0])==3: #Requerimento 3
+        name = input("Nombre del director a buscar: ")
+        movies = controller.getMoviesByCriteria (catalog, name, name_catalog, criterio)
+        numero=size(movies)
+        prom_votos=controller.getVotosProm()
         print(movies)
 
 
@@ -106,12 +110,17 @@ while True:
         movies = controller.getWorstMovies (catalog, int(number))
         print (movies)
 
-    elif int(input[0])==6:
+    elif int(input[0])==6: #Requerimento 1
         director = input("Ingrese el nombre del director")
         peliculas = controller.getMoviesByDirector (catalog, director)
         positivos = controller.getPositiveVotes (peliculas)
         print (positivos)
-
+    elif int(input[0])==7: #Requerimento 2
+        X=int(input("Ingrese un número X que define el número de elementos que se retornan: "))
+        mayor_votos_prom=controller.getXVotosProm(10, >)
+        mayor_votos_tot=controller.getVotosTot(10, >)
+        menor_xvotos_prom=controller.getXVotosProm(X, <)
+        menor_xvotos_tot=controller.getXVotosTot(X, <)
     else:
         sys.exit(0)
 sys.exit(0)

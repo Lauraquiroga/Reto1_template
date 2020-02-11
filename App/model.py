@@ -77,24 +77,18 @@ def addDirector (catalog, director):
 
 # Funciones de consulta
 
-def getMoviesByDirector (catalog, dir_name):
+def getMoviesByCriteria (catalog, nombre_catalogo, criterio) :
     """
     Retorna las peliculas a partir del nombre del director
     """
-    director_movies=lt.newList(datastructure)
-    nombre_director={"name":dir_name, ""}
-    
-    for director in catalog["director"]:
-        if dir_name==director["name"]:
-
-            lt.addLast
-
-    return []
-
-def getPositiveVotes (peliculas):
-    positivos = 0
-    for movie in peliculas:
-        if movie["vote_average"]>=6:
-            positivos+=1
-    return positivos
-
+    if criteri0==1:
+        criteria=dir_name:
+    if criterio == 2:
+        criteria=actor_name
+    movies_filtered=lt.newList("ARRAY_LIST")
+    iterator = it.newIterator(nombre_catalogo[criteria])
+    while  it.hasNext(iterator):
+        element = it.next(iterator)
+        if name in element[criteria]:
+            lt.addLast(director_movies,element['id'])
+    return(director_movies)
