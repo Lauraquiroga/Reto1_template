@@ -38,17 +38,26 @@ def newCatalog():
     Inicializa el catálogo de peliculas. Retorna el catalogo inicializado.
     """
     catalog = {'movies':None, 'directors':None, 'actors': None}
-    catalog['movies'] = lt.newList('ARRAY_LIST')
-    catalog['directors'] = lt.newList('ARRAY_LIST')
-    catalog['actors'] = lt.newList('ARRAY_LIST')
+    catalog['generos'] = lt.newList('ARRAY_LIST')
+    catalog['directores'] = lt.newList('ARRAY_LIST')
+    catalog['actores'] = lt.newList('ARRAY_LIST')
+    catalog['votos_prom']=lt.newList('ARRAY_LIST')
+    catalog['votos_totales']=lt.newList('ARRAY_LIST')
     return catalog
 
 
-def newActor (name, movie_id):
+def newActor (name, catalog):
     """
     Crea una nueva estructura para almacenar los actores de una pelicula 
     """
-    pass
+    actor = {'name':name, 'movies':lt.newList(), 'average':" ", 'director_mas':" "}
+    lista_peliculas=peli_filtradas(name)
+    vote_average=getVotosProm(lista_peliculas, catalog)
+    director_mas=director_mas_actor(name, directores)
+    actor['movies']=lista_peliculas
+    actor['average']=vote_average
+    actor['director_mas']=director_mas
+    return actor
 
 def addActor (catalog, actor):
     """
@@ -56,24 +65,38 @@ def addActor (catalog, actor):
     """
     pass
 
-def newDirector (name, movie_id):
+def newDirector (name, catalog):
     """
     Esta estructura almancena los directores de una pelicula.
     """
-    director = {'name':'', 'movie_id':''}
-    director ['name'] = name
-    director ['movie_id'] = movie_id
+    director = {'name':name, 'movies':lt.newList(), 'average':" "}
+    lista_peliculas=peli_filtradas(name)
+    vote_average=getVotosProm(lista_peliculas, catalog)
+    director['movies']=lista_peliculas
+    director['average']=vote_average
     return director
+
+def UpdateDirector ():
+#Si el director ya está en la lista
+
+def newGenre (genre, catalog):
+    """
+    Esta estructura almancena los directores de una pelicula.
+    """
+    genero = {'genre':genre, 'movies':lt.newList(), 'average':" "}
+    lista_peliculas=peli_filtradas(genre)
+    vote_average=getVotosProm(lista_peliculas, catalog)
+    genero['movies']=lista_peliculas
+    genero['average']=vote_average
+    return genre
 
 
 def addDirector (catalog, director):
     """
     Adiciona un director a la lista de directores
     """
-    d = newDirector (director['director_name'], director['id'])
+    d = newDirector (director['director_name'], catalog)
     lt.addLast (catalog['directors'], d)
-
-
 
 # Funciones de consulta
 
@@ -82,7 +105,7 @@ def getMoviesByCriteria (catalog, nombre_catalogo, criterio) :
     Retorna las peliculas a partir del nombre del director
     """
     if criteri0==1:
-        criteria=dir_name:
+        criteria=dir_name
     if criterio == 2:
         criteria=actor_name
     movies_filtered=lt.newList("ARRAY_LIST")
@@ -92,3 +115,12 @@ def getMoviesByCriteria (catalog, nombre_catalogo, criterio) :
         if name in element[criteria]:
             lt.addLast(director_movies,element['id'])
     return(director_movies)
+
+def ordenar_peli_votos (catalogo)
+    
+def direct_mas_actor (buscado)->:
+    for actors:
+        if actor['name']==buscado
+        for directores:
+            if actor['id]']==director['id']:
+                if 

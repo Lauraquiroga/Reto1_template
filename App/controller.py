@@ -152,7 +152,7 @@ if criteria==>:
 
 if criteria==<:
 
-def GetVotosProm (catalog)->float:
+def getVotosProm (catalog)->float:
 
 
 
