@@ -159,9 +159,9 @@ def getBestMovies (catalog, number, criteria):
     """
     se usa para encontrar el top x de mejores películas por vote_count o por vote_average
     """
-    return model.getBestMovies(catalog, number, cirteria)
+    return model.getBestMovies(catalog, number, criteria)
 
-def getWorstMovies (catalog, number, cirteria):
+def getWorstMovies (catalog, number, criteria):
     """
     se usa para encontrar el top x de peores películas por vote_count o por vote_average
     """

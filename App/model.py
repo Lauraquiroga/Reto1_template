@@ -151,22 +151,49 @@ def addDirector (catalog, row):
 
 
 
-def newGenre (genre, catalog):
+def newGenre (genre, movies, average_vote):
     """
     Esta estructura almancena los directores de una pelicula.
     """
-    genero = {'genre':genre, 'movies':lt.newList(), 'average':" "}
-    lista_peliculas=peli_filtradas(genre)
-    vote_average=getVotosProm(lista_peliculas, catalog)
-    genero['movies']=lista_peliculas
-    genero['average']=vote_average
-    return genre
+    genero = {'genre':' ', 'movies':lt.newList(), 'average':' '}
+    genero['genre']=genre
+    genero['movies']=movies
+    genero['average']=average_vote
+    return genero
+
+def updateGenre (genre, movie, average_vote):
+    """
+    Actualiza al director dado si ya está en la lista de directores
+    """
+    lt.addLast (genre['movies'], movie)
+    size= lt.size(genre['movies'])
+    n= (size-1)/size
+    m= average_vote/size
+    genre['average']= (genre['average']*n)+m
 
 def addGenre(catalog, genre):
     """
     Adiciona un género a la lista de géneros
     """
-    pass
+    name=row['genres']
+    movie= row['title']
+    average_vote= row['vote-average']
+    size = lt.size(catalog['genres'])
+    if size:
+        iterator = it.newIterator(catalog['genres'])
+        while  it.hasNext(iterator):
+            genre = it.next(iterator)
+
+            if name == genre['genre']:
+                updateGenre(genre, movie, average_vote)
+            else:
+                g = newGenre (name, movie, average_vote)
+                lt.addLast (catalog['genres'], g)
+                
+    else:
+        g = newGenre (row['genres'], movies, average_vote)
+        lt.addLast (catalog['genres'], g)
+    
 
 
 # Funciones de consulta
