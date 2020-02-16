@@ -69,16 +69,15 @@ def direct_mas_actor (buscado):
 
 #creación de las ramas del catálogo
 
-def newActor (name, catalog):
+def newActor (name, movies, average_vote, director_mas):
     """
     Crea una nueva estructura para almacenar los actores de una pelicula 
     """
-    actor = {'name':name, 'movies':lt.newList(), 'average':" ", 'director_mas':" "}
-    lista_peliculas=peli_filtradas(name)
-    vote_average=getVotosProm(lista_peliculas, catalog)
-    director_mas=director_mas_actor(name, directores)
-    actor['movies']=lista_peliculas
-    actor['average']=vote_average
+    actor = {'name':' ', 'movies':lt.newList(), 'average':" ", 'director_mas':" "}
+    
+    actor["name"]=name
+    actor["movies"]=movies
+    actor["average"]=average_vote
     actor['director_mas']=director_mas
     return actor
 
@@ -98,28 +97,32 @@ def newDirector (name, movies, average_vote):
     director["average"]=average_vote
     return director
 
-def updateDirector (name):
+def updateDirector (director, movie, average_vote):
     """
     Actualiza al director dado si ya está en la lista de directores
     """
-
-    pass
+    lt.addLast (director['movies'], movie)
+    size= lt.size(director['movies'])
+    n= (size-1)/size
+    m= average_vote/size
+    director['average']= (director['average']*n)+m
 
 def addDirector (catalog, row):
     """
     Adiciona un director a la lista de directores
     """
     name=row["director_name"]
+    id=row['id']
     size = lt.size(catalog['directores'])
     if size:
         iterator = it.newIterator(catalog['directores'])
         while  it.hasNext(iterator):
             director = it.next(iterator)
-            if director["name"]==name:
-                updateDirector(name)
+            movie=
+            average_vote=
+            if name == director["name"]:
+                updateDirector(director, movie, average_vote)
             else:
-                movie=
-                average_vote=
                 d = newDirector (name, movie, average_vote)
                 lt.addLast (catalog['directors'], d)
                 
