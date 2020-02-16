@@ -46,6 +46,17 @@ def newCatalog():
     return catalog
 
 #Funciones que se requieren para crear cada rama del catálogo
+def newMovie (title, vote_average, vote_count, id):
+    movie= {'title':' ', 'vote_average':' ', 'vote_count':' ', 'id':' '}
+    movie['title']=title
+    movie['vote_average']=vote_average
+    movie['vote_count']=vote_count
+    movie['id']=id
+    return movie
+
+def addMovie (catalog, row):
+    m = newMovie (row['title'], row['vote_average'], row['vote_count'], row['id'])
+    lt.addLast (catalog['peliculas_prom'], m)
 
 def actor_mas_dirigido_director(): ##Requerimento 4
     addLast (list, row["director_name"])
@@ -80,6 +91,9 @@ def newActor (name, movies, average_vote, director_mas):
     actor["average"]=average_vote
     actor['director_mas']=director_mas
     return actor
+
+def updateActor(actor, movie, average_vote, director_mas)
+    pass
 
 def addActor (catalog, actor):
     """

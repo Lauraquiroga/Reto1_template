@@ -47,6 +47,8 @@ def printList (lst):
 def compareratings (movie1, movie2):
     return ( float(movie1['vote_average']) > float(movie2['vote_average']))
 
+def comparevotecount (movie1, movie2):
+    return ( float(movie1['vote_count']) > float(movie2['vote_count']))
 
 # Funciones para la carga de datos 
 
@@ -63,7 +65,8 @@ def loadMovies (catalog):
     with open(moviesfile, encoding="utf-8") as csvfile:
         spamreader = csv.DictReader(csvfile, dialect=dialect)
         for row in spamreader: 
-            lt.addLast (catalog['movies'], row)
+            model.addMovie (catalog,row)
+            #lt.addLast (catalog['movies'], row)
     t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución carga peliculas",t1_stop-t1_start," segundos")
 
@@ -134,7 +137,8 @@ def loadData (catalog):
     estructura de datos
     """
     loadMovies(catalog)
-    sort.sort(catalog['movies'],compareratings)
+    sort.sort(catalog['peliculas_prom'],compareratings)
+    sort.sort(catalog['votos_totales'], comparevotecount)
     loadDirectors(catalog)
     loadActors(catalog)
     loadGenres(catalog)
