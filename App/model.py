@@ -73,7 +73,7 @@ def ordenar_peli_votos (catalogo) :
     """
     pass
     
-def direct_mas_actor (buscado):
+def dir_mas_act (buscado):
     """
     for actors:
         if actor['name']==buscado
@@ -97,14 +97,87 @@ def newActor (name, movies, average_vote, directores, director_mas):
     actor['director_mas']=director_mas
     return actor
 
-def updateActor(actor, movie, average_vote, director_mas):
-    pass
+def updateActor(actor, movie, average_vote, director):
+    lt.addLast (actor['movies'], movie)
+    size= lt.size(actor['movies'])
+    n= (size-1)/size
+    m= average_vote/size
+    actor['average']= (actor['average']*n)+m
+    lt.addLast (actor['directores'], director)
+    actor['director_mas']=dir_mas_act()
 
-def addActor (catalog, actor):
+def addActor (catalog, row):
     """
     Adiciona un actor a la lista de actores
     """
-    pass
+    name1=row["actor1_name"]
+    name2=row['actor2_name']
+    name3=row['actor3_name']
+    name4=row['actor4_name']
+    name5=row['actor5_name']
+    id_m=row['id']
+    director=row['director_name']
+    movie= None
+    average_vote= None
+
+    peliculas= catalog['peliculas_prom']
+    size = lt.size(peliculas)
+    iterator = it.newIterator(peliculas)
+    while  it.hasNext(iterator) and movie==None:
+        pelicula = it.next(iterator)
+        if pelicula['id']==id_m:
+            movie=pelicula['title']
+            average_vote=['vote_average']
+
+    repetido1=0
+    repetido2=0
+    repetido3=0
+    repetido4=0
+    repetido5=0
+    size = lt.size(catalog['actores'])
+    
+    if size:
+        iterator = it.newIterator(catalog['actores'])
+        while  it.hasNext(iterator):
+            actor = it.next(iterator)
+        
+            if name1 == actor["name"]:
+                repetido1=1
+                updateActor(actor, movie, average_vote, director)
+            elif name2 == actor["name"]:
+                repetido2=1
+                updateActor(actor, movie, average_vote, director)
+            elif name3 == actor["name"]:
+                repetido3=1
+                updateActor(actor, movie, average_vote, director)
+            elif name4 == actor["name"]:
+                repetido4=1
+                updateActor(actor, movie, average_vote, director)
+            elif name5 == actor["name"]:
+                repetido5=1
+                updateActor(actor, movie, average_vote, director)
+        
+    if repetido1==0:
+        director_mas=director
+        a1 = newActor (name1, movie, average_vote, director, director_mas)
+        lt.addLast (catalog['actors'], a1)
+    if repetido2==0:
+        director_mas=director
+        a2 = newActor (name2, movie, average_vote, director, director_mas)
+        lt.addLast (catalog['actors'], a2)
+    if repetido3==0:
+        director_mas=director
+        a3 = newActor (name3, movie, average_vote, director, director_mas)
+        lt.addLast (catalog['actors'], a3)
+    if repetido4==0:
+        director_mas=director
+        a4 = newActor (name4, movie, average_vote, director, director_mas)
+        lt.addLast (catalog['actors'], a4)
+    if repetido5==0:
+        director_mas=director
+        a5 = newActor (name5, movie, average_vote, director, director_mas)
+        lt.addLast (catalog['actors'], a5)
+    
 
 def newDirector (name, movies, average_vote):
     """
@@ -145,6 +218,7 @@ def addDirector (catalog, row):
             average_vote=['vote_average']
 
     size = lt.size(catalog['directores'])
+    repetido= 0
     if size:
         iterator = it.newIterator(catalog['directores'])
         while  it.hasNext(iterator):
@@ -152,12 +226,10 @@ def addDirector (catalog, row):
         
             if name == director["name"]:
                 updateDirector(director, movie, average_vote)
-            else:
-                d = newDirector (name, movie, average_vote)
-                lt.addLast (catalog['directors'], d)
+                repetido=1
                 
-    else:
-        d = newDirector (row['director_name'], movie, average_vote)
+    elif not(size) or repetido==0:
+        d = newDirector (name, movie, average_vote)
         lt.addLast (catalog['directors'], d)
 
 
