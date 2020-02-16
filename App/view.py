@@ -70,11 +70,42 @@ def printBestMovies (movies):
         iterator = it.newIterator(movies)
         while  it.hasNext(iterator):
             movie = it.next(iterator)
-            print ('Titulo: ' + movie['original_title'] + '  Fecha: ' + movie['release_date'] + ' Rating: ' + movie['vote_average'])
+            print ('Titulo: ' + movie['title'] + '  Fecha: ' + movie['release_date'] + ' Rating: ' + movie['vote_average'])
     else:
         print ('No se encontraron peliculas')
 
+def printWorstMovies (movies):
+    size = lt.size(movies)
+    if size:
+        print (' Estas son las mejores peliculas: ')
+        iterator = it.newIterator(movies)
+        while  it.hasNext(iterator):
+            movie = it.next(iterator)
+            print ('Titulo: ' + movie['title'] + '  Fecha: ' + movie['release_date'] + ' Rating: ' + movie['vote_average'])
+    else:
+        print ('No se encontraron peliculas')
 
+def printMostVoted (movies):
+    size = lt.size(movies)
+    if size:
+        print (' Estas son las peliculas con mayor número de votos: ')
+        iterator = it.newIterator(movies)
+        while  it.hasNext(iterator):
+            movie = it.next(iterator)
+            print ('Titulo: ' + movie['title'] + '  Fecha: ' + movie['release_date'] + ' Vote count: ' + movie['vote_count'])
+    else:
+        print ('No se encontraron peliculas')
+
+def printLessVoted (movies):
+    size = lt.size(movies)
+    if size:
+        print (' Estas son las peliculas menor npumero de votos: ')
+        iterator = it.newIterator(movies)
+        while  it.hasNext(iterator):
+            movie = it.next(iterator)
+            print ('Titulo: ' + movie['title'] + '  Fecha: ' + movie['release_date'] + ' Vote count: ' + movie['vote_count'])
+    else:
+        print ('No se encontraron peliculas')
 
 """
 Menu principal
@@ -92,25 +123,29 @@ while True:
 
     elif int(inputs[0])==2:
         number = input ("Buscando las TOP ?: ") #Requerimiento 2
-        movies = controller.getBestMovies (catalog, int(number))
+        criteria="average"
+        movies = controller.getBestMovies (catalog, int(number), criteria)
         printBestMovies (movies)
 
     elif int(inputs[0])==3:
         number = input ("Buscando las TOP ?: ") #requerimiento 2
-        movies = controller.getWorstMovies (catalog, int(number))
-        print (movies)
+        criteria="average"
+        movies = controller.getWorstMovies (catalog, int(number), criteria)
+        printWorstMovies (movies)
 
-    elif int(input[0])==4: #Requerimento 2
+    elif int(inputs[0])==4: #Requerimento 2
         number =int(input("Buscando las Top ?: "))
-        movies=controller.getBestMovies()
-        print (movies)
+        criteria= "count"
+        movies=controller.getBestMovies(catalog, int(number), criteria)
+        printMostVoted (movies)
 
-    elif int(input[0])==5: #Requerimiento 2
+    elif int(inputs[0])==5: #Requerimiento 2
         number =int(input("Buscando las Top ?: "))
-        movies=controller.getWorstMovies()
-        print(movies)
+        criteria="count"
+        movies=controller.getWorstMovies(catalog, int(number), criteria)
+        printLessVoted(movies)
 
-    elif int(input[0])==6: #Requerimento 1
+    elif int(inputs[0])==6: #Requerimento 1
         director = input("Ingrese el nombre del director")
         criteria=1
         peliculas = controller.getMoviesByCriteria (catalog, director, criteria)

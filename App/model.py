@@ -45,19 +45,22 @@ def newCatalog():
     catalog['votos_totales']=lt.newList('ARRAY_LIST') #lista de peliculas ordenadas por vote_count
     return catalog
 
-#Funciones que se requieren para crear cada rama del catálogo
+#cargar películas
 def newMovie (title, vote_average, vote_count, id):
-    movie= {'title':' ', 'vote_average':' ', 'vote_count':' ', 'id':' '}
+    movie= {'title':' ', 'vote_average':' ', 'vote_count':' ', 'release_date':' ', 'id':' '}
     movie['title']=title
     movie['vote_average']=vote_average
     movie['vote_count']=vote_count
+    movie['release_date']=release_date
     movie['id']=id
     return movie
 
 def addMovie (catalog, row):
-    m = newMovie (row['title'], row['vote_average'], row['vote_count'], row['id'])
+    m = newMovie (row['title'], row['vote_average'], row['vote_count'], row['release_date'], row['id'])
     lt.addLast (catalog['peliculas_prom'], m)
+    lt.addLast (catalog['votos_totales'], m)
 
+#Funciones que se requieren para crear cada rama del catálogo
 def actor_mas_dirigido_director(): ##Requerimento 4
     addLast (list, row["director_name"])
     if row["actor_name"] !=""
@@ -190,21 +193,32 @@ def getMoviesByCriteria (catalog, name, criteria):
             lt.addLast(movies,element['id'])
     return(movies)
 
-def getBestMovies (catalog, number, criteria):              #TOCA CAMBIAR LOS FOR POR ITERATORS
-    movies = catalog['movies']
+def getBestMovies (catalog, number, criteria):
+    if criteria=="average":           
+        movies = catalog['peliculas_prom']
+    else:
+        movies = catalog['votos_totales']
+
     bestmovies = lt.newList()
-    for cont in range (1, number+1):
-        movie = lt.getElement (movies, cont)
-        lt.addLast (bestmovies, movie)
+
+    iterator = it.newIterator(movies)
+    while  it.hasNext(iterator) and lt.size(bestmovies)<=number:
+        movie = it.next(iterator)
+        lt.addLast(bestmovies, movie)
+        
+
+    
+    
     return bestmovies
 
 def getWorstMovies (catalog, number, criteria):
-    movies = catalog['movies']
+    if criteria=="average":           
+        movies = catalog['peliculas_prom']
+    else:
+        movies = catalog['votos_totales']
+
     worstmovies = lt.newList()
-    largo=lt.size(movies)
-    for cont in range (largo-number, largo):
-        movie = lt.getElement (movies, cont)
-        lt.addLast (worstmovies, movie["title"])
+    
     return worstmovies
 
 def getPositiveVotes (peliculas):
