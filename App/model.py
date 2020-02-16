@@ -46,7 +46,7 @@ def newCatalog():
     return catalog
 
 #cargar películas
-def newMovie (title, vote_average, vote_count, id):
+def newMovie (title, vote_average, vote_count, release_date, id):
     movie= {'title':' ', 'vote_average':' ', 'vote_count':' ', 'release_date':' ', 'id':' '}
     movie['title']=title
     movie['vote_average']=vote_average
@@ -61,9 +61,11 @@ def addMovie (catalog, row):
     lt.addLast (catalog['votos_totales'], m)
 
 #Funciones que se requieren para crear cada rama del catálogo
+
 def actor_mas_dirigido_director(): ##Requerimento 4
-    addLast (list, row["director_name"])
-    if row["actor_name"] !=""
+    #addLast (list, row["director_name"])
+    #if row["actor_name"] !=""
+    pass
 
 def ordenar_peli_votos (catalogo) :
     """
@@ -83,19 +85,19 @@ def direct_mas_actor (buscado):
 
 #creación de las ramas del catálogo
 
-def newActor (name, movies, average_vote, director_mas):
+def newActor (name, movies, average_vote, directores, director_mas):
     """
     Crea una nueva estructura para almacenar los actores de una pelicula 
     """
-    actor = {'name':' ', 'movies':lt.newList(), 'average':" ", 'director_mas':" "}
-    
+    actor = {'name':' ', 'movies':lt.newList(), 'average':" ",'directores':{}, 'director_mas':" "}
     actor["name"]=name
     actor["movies"]=movies
     actor["average"]=average_vote
+    actor['directores']=directores
     actor['director_mas']=director_mas
     return actor
 
-def updateActor(actor, movie, average_vote, director_mas)
+def updateActor(actor, movie, average_vote, director_mas):
     pass
 
 def addActor (catalog, actor):
@@ -132,15 +134,15 @@ def addDirector (catalog, row):
     id_m=row['id']
     movie= None
     average_vote= None
-    
+
     peliculas= catalog['peliculas_prom']
     size = lt.size(peliculas)
     iterator = it.newIterator(peliculas)
-        while  it.hasNext(iterator) and movie==None:
-            pelicula = it.next(iterator)
-            if pelicula['id']==id_m:
-                movie=pelicula['title']
-                average_vote=['vote_average']
+    while  it.hasNext(iterator) and movie==None:
+        pelicula = it.next(iterator)
+        if pelicula['id']==id_m:
+            movie=pelicula['title']
+            average_vote=['vote_average']
 
     size = lt.size(catalog['directores'])
     if size:
@@ -180,7 +182,7 @@ def updateGenre (genre, movie, average_vote):
     m= average_vote/size
     genre['average']= (genre['average']*n)+m
 
-def addGenre(catalog, genre):
+def addGenre(catalog, row):
     """
     Adiciona un género a la lista de géneros
     """
@@ -200,7 +202,7 @@ def addGenre(catalog, genre):
                 lt.addLast (catalog['genres'], g)
                 
     else:
-        g = newGenre (row['genres'], movies, average_vote)
+        g = newGenre (row['genres'], movie, average_vote)
         lt.addLast (catalog['genres'], g)
     
 
@@ -235,13 +237,8 @@ def getBestMovies (catalog, number, criteria):
     else:
         movies = catalog['votos_totales']
 
-    bestmovies = lt.newList()
-
-    iterator = it.newIterator(movies)
-    while  it.hasNext(iterator) and lt.size(bestmovies)<=number:
-        movie = it.next(iterator)
-        lt.addLast(bestmovies, movie)
-
+    pos= 1
+    bestmovies = lt.subList(movies, pos, number)
     return bestmovies
 
 def getWorstMovies (catalog, number, criteria):
@@ -249,9 +246,9 @@ def getWorstMovies (catalog, number, criteria):
         movies = catalog['peliculas_prom']
     else:
         movies = catalog['votos_totales']
-
-    worstmovies = lt.newList()
-    
+    size=lt.size(movies)
+    pos=size-number
+    worstmovies = lt.subList(movies, pos, number)
     return worstmovies
 
 def getPositiveVotes (peliculas):
