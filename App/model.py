@@ -45,6 +45,29 @@ def newCatalog():
     catalog['votos_totales']=lt.newList('ARRAY_LIST')
     return catalog
 
+#Funciones que se requieren para crear cada rama del catálogo
+
+def actor_mas_dirigido_director(): ##Requerimento 4
+    addLast (list, row["director_name"])
+    if row["actor_name"] !=""
+
+def ordenar_peli_votos (catalogo) :
+    """
+    ordena la lista de peliculas de mejor promedio a peor promedio
+    """
+    pass
+    
+def direct_mas_actor (buscado):
+    """
+    for actors:
+        if actor['name']==buscado
+        for directores:
+            if actor['id]']==director['id']:
+                if 
+    """
+    pass
+
+#creación de las ramas del catálogo
 
 def newActor (name, catalog):
     """
@@ -76,8 +99,17 @@ def newDirector (name, catalog):
     director['average']=vote_average
     return director
 
+def addDirector (catalog, director):
+    """
+    Adiciona un director a la lista de directores
+    """
+    d = newDirector (director['director_name'], catalog)
+    lt.addLast (catalog['directors'], d)
+
 def UpdateDirector ():
-    #Si el director ya está en la lista se debe actualizar
+    """
+    Actualiza al director dado si ya está en lalista de directores
+    """
     pass
 
 def newGenre (genre, catalog):
@@ -91,42 +123,57 @@ def newGenre (genre, catalog):
     genero['average']=vote_average
     return genre
 
+def addGenre(catalog, genre):
+    """
+    Adiciona un género a la lista de géneros
+    """
+    pass
 
-def addDirector (catalog, director):
-    """
-    Adiciona un director a la lista de directores
-    """
-    d = newDirector (director['director_name'], catalog)
-    lt.addLast (catalog['directors'], d)
 
 # Funciones de consulta
 
-def getMoviesByCriteria (catalog, nombre_catalogo, criterio) :
+def getMoviesByCriteria (catalog, name, criteria):
     """
-    Retorna las peliculas a partir del nombre del director
+    Retorna una lista de diccionarios cuyo valor de "name" incluye el nombre que se busca
+    (a partir del nombre del director, del actor o del género)
     """
-    if criteri0==1:
-        criteria=dir_name
-    if criterio == 2:
-        criteria=actor_name
-    movies_filtered=lt.newList("ARRAY_LIST")
-    iterator = it.newIterator(nombre_catalogo[criteria])
+    movies=lt.newList("ARRAY_LIST")
+
+    if criteria ==1:
+        rama="directores"
+    elif criteria == 2:
+        rama="actores"
+    elif criteria == 3:
+        rama="generos"
+    
+    iterator = it.newIterator(catalog[rama])
     while  it.hasNext(iterator):
         element = it.next(iterator)
-        if name in element[criteria]:
-            lt.addLast(director_movies,element['id'])
-    return(director_movies)
+        if name in element["name"]:
+            #HASTA AQUÍ VA BIEN LA FUNCIÓN
+            lt.addLast(movies,element['id'])
+    return(movies)
 
-def ordenar_peli_votos (catalogo) :
-    """
-    
+def getBestMovies (catalog, number, criteria):              #TOCA CAMBIAR LOS FOR POR ITERATORS
+    movies = catalog['movies']
+    bestmovies = lt.newList()
+    for cont in range (1, number+1):
+        movie = lt.getElement (movies, cont)
+        lt.addLast (bestmovies, movie)
+    return bestmovies
 
-    """
-    pass
-    
-def direct_mas_actor (buscado)->:
-    for actors:
-        if actor['name']==buscado
-        for directores:
-            if actor['id]']==director['id']:
-                if 
+def getWorstMovies (catalog, number, criteria):
+    movies = catalog['movies']
+    worstmovies = lt.newList()
+    largo=lt.size(movies)
+    for cont in range (largo-number, largo):
+        movie = lt.getElement (movies, cont)
+        lt.addLast (worstmovies, movie["title"])
+    return worstmovies
+
+def getPositiveVotes (peliculas):
+    positivos = 0
+    for movie in peliculas:
+        if movie["vote_average"]>=6:
+            positivos+=1
+    return positivos

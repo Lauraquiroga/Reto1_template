@@ -137,29 +137,29 @@ def loadData (catalog):
     sort.sort(catalog['movies'],compareratings)
     loadDirectors(catalog)
     loadActors(catalog)
+    loadGenres(catalog)
     
 
 # Funciones llamadas desde la vista y enviadas al modelo
 
-def getMoviesByDirector (catalog, dir_name):
-    return model.getMoviesByDirector(catalog, dir_name)
+def getMoviesByCriteria (catalog, name, criteria):
+    """
+    se usa para encontrar las películas por nombre de director, actor o género
+    """
+    return model.getMoviesByCriteria(catalog, name, criteria)
 
 def getPositiveVotes (peliculas):
     return model.getPositiveVotes(peliculas)
 
-def getBestMovies (catalog, number):
-    movies = catalog['movies']
-    bestmovies = lt.newList()
-    for cont in range (1, number+1):
-        movie = lt.getElement (movies, cont)
-        lt.addLast (bestmovies, movie)
-    return bestmovies
+def getBestMovies (catalog, number, criteria):
+    """
+    se usa para encontrar el top x de mejores películas por vote_count o por vote_average
+    """
+    return model.getBestMovies(catalog, number, cirteria)
 
-def getWorstMovies (catalog, number):
-    movies = catalog['movies']
-    worstmovies = lt.newList()
-    largo=lt.size(movies)
-    for cont in range (largo-number, largo):
-        movie = lt.getElement (movies, cont)
-        lt.addLast (worstmovies, movie["title"])
-    return worstmovies
+def getWorstMovies (catalog, number, cirteria):
+    """
+    se usa para encontrar el top x de peores películas por vote_count o por vote_average
+    """
+    return model.getWorstMovies(catalog, number, criteria)
+
