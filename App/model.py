@@ -129,14 +129,25 @@ def addDirector (catalog, row):
     Adiciona un director a la lista de directores
     """
     name=row["director_name"]
-    id=row['id']
+    id_m=row['id']
+    movie= None
+    average_vote= None
+    
+    peliculas= catalog['peliculas_prom']
+    size = lt.size(peliculas)
+    iterator = it.newIterator(peliculas)
+        while  it.hasNext(iterator) and movie==None:
+            pelicula = it.next(iterator)
+            if pelicula['id']==id_m:
+                movie=pelicula['title']
+                average_vote=['vote_average']
+
     size = lt.size(catalog['directores'])
     if size:
         iterator = it.newIterator(catalog['directores'])
         while  it.hasNext(iterator):
             director = it.next(iterator)
-            movie=
-            average_vote=
+        
             if name == director["name"]:
                 updateDirector(director, movie, average_vote)
             else:
@@ -144,8 +155,6 @@ def addDirector (catalog, row):
                 lt.addLast (catalog['directors'], d)
                 
     else:
-        movie=
-        average_vote=
         d = newDirector (row['director_name'], movie, average_vote)
         lt.addLast (catalog['directors'], d)
 
@@ -153,7 +162,7 @@ def addDirector (catalog, row):
 
 def newGenre (genre, movies, average_vote):
     """
-    Esta estructura almancena los directores de una pelicula.
+    Esta estructura almancena los géneros con sus películas y promedio de votos
     """
     genero = {'genre':' ', 'movies':lt.newList(), 'average':' '}
     genero['genre']=genre
@@ -163,7 +172,7 @@ def newGenre (genre, movies, average_vote):
 
 def updateGenre (genre, movie, average_vote):
     """
-    Actualiza al director dado si ya está en la lista de directores
+    Actualiza al genero dado si ya está en la lista de géneros
     """
     lt.addLast (genre['movies'], movie)
     size= lt.size(genre['movies'])
@@ -232,10 +241,7 @@ def getBestMovies (catalog, number, criteria):
     while  it.hasNext(iterator) and lt.size(bestmovies)<=number:
         movie = it.next(iterator)
         lt.addLast(bestmovies, movie)
-        
 
-    
-    
     return bestmovies
 
 def getWorstMovies (catalog, number, criteria):
