@@ -37,12 +37,12 @@ def newCatalog():
     """
     Inicializa el catálogo de peliculas. Retorna el catalogo inicializado.
     """
-    catalog = {'movies':None, 'directors':None, 'actors': None}
-    catalog['generos'] = lt.newList('ARRAY_LIST')
+    catalog = {'peliculas_prom':None, 'votos_totales':None, 'directores':None, 'actores': None, 'genres': None}
+    catalog['genres'] = lt.newList('ARRAY_LIST')
     catalog['directores'] = lt.newList('ARRAY_LIST')
     catalog['actores'] = lt.newList('ARRAY_LIST')
-    catalog['votos_prom']=lt.newList('ARRAY_LIST')
-    catalog['votos_totales']=lt.newList('ARRAY_LIST')
+    catalog['peliculas_prom']=lt.newList('ARRAY_LIST') #lista de peliculas ordenandas por vote_average
+    catalog['votos_totales']=lt.newList('ARRAY_LIST') #lista de peliculas ordenadas por vote_count
     return catalog
 
 #Funciones que se requieren para crear cada rama del catálogo
@@ -88,29 +88,48 @@ def addActor (catalog, actor):
     """
     pass
 
-def newDirector (name, catalog):
+def newDirector (name, movies, average_vote):
     """
     Esta estructura almancena los directores de una pelicula.
     """
-    director = {'name':name, 'movies':lt.newList(), 'average':" "}
-    lista_peliculas=peli_filtradas(name)
-    vote_average=getVotosProm(lista_peliculas, catalog)
-    director['movies']=lista_peliculas
-    director['average']=vote_average
+    director = {'name':" ", 'movies':lt.newList(), 'average':" "}
+    director["name"]=name
+    director["movies"]=movies
+    director["average"]=average_vote
     return director
 
-def addDirector (catalog, director):
+def updateDirector (name):
+    """
+    Actualiza al director dado si ya está en la lista de directores
+    """
+
+    pass
+
+def addDirector (catalog, row):
     """
     Adiciona un director a la lista de directores
     """
-    d = newDirector (director['director_name'], catalog)
-    lt.addLast (catalog['directors'], d)
+    name=row["director_name"]
+    size = lt.size(catalog['directores'])
+    if size:
+        iterator = it.newIterator(catalog['directores'])
+        while  it.hasNext(iterator):
+            director = it.next(iterator)
+            if director["name"]==name:
+                updateDirector(name)
+            else:
+                movie=
+                average_vote=
+                d = newDirector (name, movie, average_vote)
+                lt.addLast (catalog['directors'], d)
+                
+    else:
+        movie=
+        average_vote=
+        d = newDirector (row['director_name'], movie, average_vote)
+        lt.addLast (catalog['directors'], d)
 
-def UpdateDirector ():
-    """
-    Actualiza al director dado si ya está en lalista de directores
-    """
-    pass
+
 
 def newGenre (genre, catalog):
     """
