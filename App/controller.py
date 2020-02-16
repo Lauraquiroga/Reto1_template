@@ -82,7 +82,7 @@ def loadDirectors(catalog):
         spamreader = csv.DictReader(csvfile, dialect=dialect)
         for row in spamreader: 
             model.addDirector (catalog, row)
-    t1_stop = process_time() #tiempo inicial
+    t1_stop = process_time() #tiempo final
     print("Tiempo de ejecución carga directores",t1_stop-t1_start," segundos")
 
 
@@ -90,7 +90,33 @@ def loadActors(catalog):
     """
     Carga todos los actores
     """
-    pass
+    t1_start = process_time() #tiempo inicial
+    castingfile = cf.data_dir + 'themoviesdb/MoviesCastingRaw-small.csv'
+    
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    with open(castingfile, encoding="utf-8") as csvfile:
+        spamreader = csv.DictReader(csvfile, dialect=dialect)
+        for row in spamreader: 
+            model.addActor (catalog, row)
+    t1_stop = process_time() #tiempo final
+    print("Tiempo de ejecución carga actores",t1_stop-t1_start," segundos")
+
+def loadGenres(catalog):
+    """
+    Carga todos los géneros
+    """
+    t1_start = process_time() #tiempo inicial
+    moviesfile = cf.data_dir + 'themoviesdb/SmallMoviesDetailsCleaned.csv'
+
+    dialect = csv.excel()
+    dialect.delimiter=";"
+    with open(moviesfile, encoding="utf-8") as csvfile:
+        spamreader = csv.DictReader(csvfile, dialect=dialect)
+        for row in spamreader: 
+            model.addGenre (catalog, row)
+    t1_stop = process_time() #tiempo final
+    print("Tiempo de ejecución carga géneros",t1_stop-t1_start," segundos")
 
 
 def initCatalog ():
@@ -115,8 +141,11 @@ def loadData (catalog):
 
 # Funciones llamadas desde la vista y enviadas al modelo
 
-def getMoviesByDirector (catalog, name, name_catalogo, criterio):
-    return model.getMoviesByDirector(catalog, name, name_catalog, criterio) 
+def getMoviesByDirector (catalog, dir_name):
+    return model.getMoviesByDirector(catalog, dir_name)
+
+def getPositiveVotes (peliculas):
+    return model.getPositiveVotes(peliculas)
 
 def getBestMovies (catalog, number):
     movies = catalog['movies']
@@ -134,28 +163,3 @@ def getWorstMovies (catalog, number):
         movie = lt.getElement (movies, cont)
         lt.addLast (worstmovies, movie["title"])
     return worstmovies
-
-def getPositiveVotes (peliculas):
-    positivos = 0
-    for movie in peliculas:
-        if movie["vote_average"]>=6:
-            positivos+=1
-    return positivos
-
-def getXVotosProm (X, criterio)->list:
-if criteria==>:
-
-if criteria==<:
-
-def getXvotosTot (X,criteria)->list:
-if criteria==>:
-
-if criteria==<:
-
-def getVotosProm (catalog)->float:
-
-
-
-def actor_mas_dirigido_director(): ##Requerimento 4
-    addLast (list, row["director_name"])
-    if row["actor_name"] !=""

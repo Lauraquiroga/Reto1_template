@@ -77,7 +77,8 @@ def newDirector (name, catalog):
     return director
 
 def UpdateDirector ():
-#Si el director ya está en la lista
+    #Si el director ya está en la lista se debe actualizar
+    pass
 
 def newGenre (genre, catalog):
     """
@@ -116,7 +117,12 @@ def getMoviesByCriteria (catalog, nombre_catalogo, criterio) :
             lt.addLast(director_movies,element['id'])
     return(director_movies)
 
-def ordenar_peli_votos (catalogo)
+def ordenar_peli_votos (catalogo) :
+    """
+    
+
+    """
+    pass
     
 def direct_mas_actor (buscado)->:
     for actors:
