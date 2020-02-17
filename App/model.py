@@ -222,7 +222,7 @@ def addDirector (catalog, row):
                 updateDirector(director, movie, average_vote)
                 repetido=1
                 
-    elif not(size) or repetido==0:
+    if not(size) or repetido==0:
         if float(average_vote)>=6:
             positives=1
         else:
@@ -271,7 +271,7 @@ def addGenre(catalog, row):
                 updateGenre(genre, movie, average_vote)
             
                 
-    elif not(size) or repetido==0:
+    if not(size) or repetido==0:
         g = newGenre (name, movie, average_vote)
         lt.addLast (catalog['genres'], g)
     
