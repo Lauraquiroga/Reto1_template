@@ -289,9 +289,20 @@ def getMoviesByCriteria (catalog, name, criteria):
     while  it.hasNext(iterator):
         element = it.next(iterator)
         if name in element["name"]:
-            #HASTA AQUÍ VA BIEN LA FUNCIÓN
-            lt.addLast(movies,element['id'])
+            lt.addLast(movies,element)
+
     return(movies)
+
+def getMoviesByDirector (catalog, name):
+    movies=lt.newList("ARRAY_LIST")
+    iterator = it.newIterator(catalog["directores"])
+    while  it.hasNext(iterator):
+        element = it.next(iterator)
+        if name in element["name"]:
+            size= lt.size(element['movies'])
+            director={'director':element['name'],"películas":element['movies'], 'cantidad':size, "prom":element['average']}
+            lt.addLast(movies,director)
+    return movies
 
 def getBestMovies (catalog, number, criteria):
     if criteria=="average":           

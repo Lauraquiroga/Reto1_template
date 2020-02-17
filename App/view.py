@@ -155,8 +155,7 @@ while True:
 
     elif int(inputs[0])==7: #Requerimento 3
         name = input("Nombre del director a buscar: ")
-        criteria= 1 #criterio para buscar director
-        movies = controller.getMoviesByCriteria (catalog, name, criteria)
+        movies = controller.getMoviesByDirector (catalog, name)
         print(movies)
 
 
