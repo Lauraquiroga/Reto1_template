@@ -220,7 +220,7 @@ def addDirector (catalog, row):
                 
     elif not(size) or repetido==0:
         d = newDirector (name, movie, average_vote)
-        lt.addLast (catalog['directors'], d)
+        lt.addLast (catalog['directores'], d)
 
 
 
