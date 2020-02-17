@@ -319,3 +319,25 @@ def getWorstMovies (catalog, number, criteria):
     pos=size-number
     worstmovies = lt.subList(movies, pos, number)
     return worstmovies
+
+def getMoviesByActor (catalog, name):
+    movies=lt.newList("ARRAY_LIST")
+    iterator = it.newIterator(catalog["actores"])
+    while  it.hasNext(iterator):
+        element = it.next(iterator)
+        if name in element["name"]:
+            size= lt.size(element['movies'])
+            actor={'actor':element['name'],"películas":element['movies'], 'cantidad':size, "promedio":element['average'], 'director':element['director_mas']}
+            lt.addLast(movies,actor)
+    return movies
+
+def getMoviesByGenre (catalog, name):
+    movies=lt.newList("ARRAY_LIST")
+    iterator = it.newIterator(catalog["genres"])
+    while  it.hasNext(iterator):
+        element = it.next(iterator)
+        if name in element["genre"]:
+            size= lt.size(element['movies'])
+            genre={'genero':element['genre'], 'cantidad':size, "prom":element['average']}
+            lt.addLast(movies,genre)
+    return movies

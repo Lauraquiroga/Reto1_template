@@ -164,3 +164,9 @@ def getWorstMovies (catalog, number, criteria):
 def getMoviesByDirector (catalog, name):
     return model.getMoviesByDirector(catalog, name)
 
+def getMoviesByActor (catalog, name):
+    return model.getMoviesByActor(catalog, name)
+
+def getMoviesByGenre (catalog, name):
+    return model.getMoviesByGenre(catalog, name)
+

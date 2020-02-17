@@ -158,14 +158,12 @@ while True:
 
     elif int(inputs[0])==8:#Requerimiento 4
         name = input ("Nombre del Actor a buscar: ")
-        criteria = 2 #criterio para buscar actor
-        movies = controller.getMoviesByCriteria (catalog, name, criteria)
+        movies = controller.getMoviesByActor(catalog, name)
         print(movies)
 
     elif int(inputs[0])==9:#Requerimiento 5
         name = input ("Nombre del Género a buscar: ")
-        criteria = 3 #criterio para buscar género
-        movies = controller.getMoviesByCriteria (catalog, name, criteria)
+        movies = controller.getMoviesByGenre (catalog, name)
         print(movies)
 
     else:
