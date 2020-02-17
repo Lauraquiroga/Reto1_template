@@ -77,7 +77,7 @@ def newActor (name, movies, average_vote, directores, director_mas):
     """
     actor = {'name':' ', 'movies':lt.newList(), 'average':" ",'directores':{}, 'director_mas':" "}
     actor["name"]=name
-    actor["movies"]=movies
+    lt.addLast(actor["movies"], movies)
     actor["average"]=average_vote
     actor['directores']=directores
     actor['director_mas']=director_mas
@@ -224,9 +224,9 @@ def addDirector (catalog, row):
                 
     elif not(size) or repetido==0:
         if average_vote>=6:
-            director['positives']=1
+            positives=1
         else:
-            director['positives']=0
+            positives=0
         d = newDirector (name, movie, average_vote, positives)
         lt.addLast (catalog['directores'], d)
 
@@ -238,7 +238,7 @@ def newGenre (genre, movies, average_vote):
     """
     genero = {'genre':' ', 'movies':lt.newList(), 'average':' '}
     genero['genre']=genre
-    genero['movies']=movies
+    lt.addLast(genero['movies'], movies)
     genero['average']=average_vote
     return genero
 
