@@ -61,27 +61,9 @@ def addMovie (catalog, row):
     lt.addLast (catalog['votos_totales'], m)
 
 #Funciones que se requieren para crear cada rama del catálogo
-
-def actor_mas_dirigido_director(): ##Requerimento 4
-    #addLast (list, row["director_name"])
-    #if row["actor_name"] !=""
-    pass
-
-def ordenar_peli_votos (catalogo) :
-    """
-    ordena la lista de peliculas de mejor promedio a peor promedio
-    """
-    pass
     
 def dir_mas_act (buscado):
-    """
-    for actors:
-        if actor['name']==buscado
-        for directores:
-            if actor['id]']==director['id']:
-                if 
-    """
-    pass
+
 
 #creación de las ramas del catálogo
 
@@ -103,7 +85,11 @@ def updateActor(actor, movie, average_vote, director):
     n= (size-1)/size
     m= average_vote/size
     actor['average']= (actor['average']*n)+m
-    lt.addLast (actor['directores'], director)
+    if actor['directores'][director] in actor['directores']:
+        actor['directores'][director]+=1
+    else:
+        actor['directores'][director]=1
+        
     actor['director_mas']=dir_mas_act()
 
 def addActor (catalog, row):
