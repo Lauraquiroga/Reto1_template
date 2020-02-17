@@ -117,8 +117,7 @@ while True:
         print("Cargando información de los archivos ....")
         catalog = initCatalog ()
         loadData (catalog)
-        print ('Peliculas cargadas: ' + str(lt.size(catalog['movies'])))
-        print ('Directores cargados: ' + str(lt.size(catalog['directors'])))
+        
 
 
     elif int(inputs[0])==2:
@@ -146,7 +145,7 @@ while True:
         printLessVoted(movies)
 
     elif int(inputs[0])==6: #Requerimento 1
-        director = input("Ingrese el nombre del director")
+        director = input("Ingrese el nombre del director: ")
         positivos = controller.getPositiveVotes(catalog, director)
         print (positivos)
 
