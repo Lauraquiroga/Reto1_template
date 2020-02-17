@@ -338,6 +338,6 @@ def getMoviesByGenre (catalog, name):
         element = it.next(iterator)
         if name in element["genre"]:
             size= lt.size(element['movies'])
-            genre={'genero':element['genre'], 'cantidad':size, "prom":element['average']}
+            genre={'genero':element['genre'],'cantidad':size, "prom":element['average']}
             lt.addLast(movies,genre)
     return movies

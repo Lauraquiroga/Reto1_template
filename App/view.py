@@ -162,6 +162,7 @@ while True:
 
     elif int(inputs[0])==9:#Requerimiento 5
         name = input ("Nombre del Género a buscar: ")
+        print(catalog['genres'])
         movies = controller.getMoviesByGenre (catalog, name)
         print(movies)
 
