@@ -62,8 +62,12 @@ def addMovie (catalog, row):
 
 #Funciones que se requieren para crear cada rama del catálogo
     
-def dir_mas_act (buscado):
-
+def dir_mas_act (lista_directores):
+    director_mas=0
+    for director in lista_directores.values():
+        if director>director_mas:
+            director_mas=director
+    return director_mas
 
 #creación de las ramas del catálogo
 
@@ -90,7 +94,7 @@ def updateActor(actor, movie, average_vote, director):
     else:
         actor['directores'][director]=1
 
-    actor['director_mas']=dir_mas_act()
+    actor['director_mas']=dir_mas_act(actor['directores'])
 
 def addActor (catalog, row):
     """
