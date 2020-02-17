@@ -89,7 +89,7 @@ def updateActor(actor, movie, average_vote, director):
         actor['directores'][director]+=1
     else:
         actor['directores'][director]=1
-        
+
     actor['director_mas']=dir_mas_act()
 
 def addActor (catalog, row):
@@ -143,23 +143,23 @@ def addActor (catalog, row):
                 repetido5=1
                 updateActor(actor, movie, average_vote, director)
         
-    if repetido1==0:
+    if repetido1==0 and name1!=None:
         director_mas=director
         a1 = newActor (name1, movie, average_vote, director, director_mas)
         lt.addLast (catalog['actors'], a1)
-    if repetido2==0:
+    if repetido2==0 and name2!=None:
         director_mas=director
         a2 = newActor (name2, movie, average_vote, director, director_mas)
         lt.addLast (catalog['actors'], a2)
-    if repetido3==0:
+    if repetido3==0 and name3!=None:
         director_mas=director
         a3 = newActor (name3, movie, average_vote, director, director_mas)
         lt.addLast (catalog['actors'], a3)
-    if repetido4==0:
+    if repetido4==0 and name4!=None:
         director_mas=director
         a4 = newActor (name4, movie, average_vote, director, director_mas)
         lt.addLast (catalog['actors'], a4)
-    if repetido5==0:
+    if repetido5==0 and name5!=None:
         director_mas=director
         a5 = newActor (name5, movie, average_vote, director, director_mas)
         lt.addLast (catalog['actors'], a5)
