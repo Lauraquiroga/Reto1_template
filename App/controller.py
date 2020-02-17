@@ -146,14 +146,8 @@ def loadData (catalog):
 
 # Funciones llamadas desde la vista y enviadas al modelo
 
-def getMoviesByCriteria (catalog, name, criteria):
-    """
-    se usa para encontrar las películas por nombre de director, actor o género
-    """
-    return model.getMoviesByCriteria(catalog, name, criteria)
-
-def getPositiveVotes (peliculas):
-    return model.getPositiveVotes(peliculas)
+def getPositiveVotes (catalog, name):
+    return model.getPositivesByDirector(catalog, name)
 
 def getBestMovies (catalog, number, criteria):
     """

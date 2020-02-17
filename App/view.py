@@ -147,10 +147,7 @@ while True:
 
     elif int(inputs[0])==6: #Requerimento 1
         director = input("Ingrese el nombre del director")
-        criteria=1
-        peliculas = controller.getMoviesByCriteria (catalog, director, criteria)
-        #como peliculas es una lista de diccionarios falta hacer algo para solo escoger las lista de películas (un ciclo)
-        positivos = controller.getPositiveVotes (peliculas)
+        positivos = controller.getPositiveVotes(catalog, director)
         print (positivos)
 
     elif int(inputs[0])==7: #Requerimento 3

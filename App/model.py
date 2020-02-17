@@ -117,7 +117,7 @@ def addActor (catalog, row):
         pelicula = it.next(iterator)
         if pelicula['id']==id_m:
             movie=pelicula['title']
-            average_vote=['vote_average']
+            average_vote=pelicula['vote_average']
 
     repetido1=0
     repetido2=0
@@ -169,14 +169,15 @@ def addActor (catalog, row):
         lt.addLast (catalog['actors'], a5)
     
 
-def newDirector (name, movies, average_vote):
+def newDirector (name, movies, average_vote, positives):
     """
     Esta estructura almancena los directores de una pelicula.
     """
-    director = {'name':" ", 'movies':lt.newList(), 'average':" "}
+    director = {'name':" ", 'movies':lt.newList(), 'average':" ", 'positives':' '}
     director["name"]=name
-    director["movies"]=movies
+    lt.addLast(director["movies"], movies)
     director["average"]=average_vote
+    director['positives']=positives
     return director
 
 def updateDirector (director, movie, average_vote):
@@ -188,6 +189,8 @@ def updateDirector (director, movie, average_vote):
     n= (size-1)/size
     m= average_vote/size
     director['average']= (director['average']*n)+m
+    if average_vote>=6:
+        director['positives']+=1
 
 def addDirector (catalog, row):
     """
@@ -201,12 +204,13 @@ def addDirector (catalog, row):
     peliculas= catalog['peliculas_prom']
     size = lt.size(peliculas)
     iterator = it.newIterator(peliculas)
+    #encuentra el nombre de la pelicula en la lista de películas a partir de su id
     while  it.hasNext(iterator) and movie==None:
         pelicula = it.next(iterator)
         if pelicula['id']==id_m:
             movie=pelicula['title']
-            average_vote=['vote_average']
-
+            average_vote=pelicula['vote_average']
+    #adiciona un director nuevo si no está en la lista de directores o lo actualiza si a está
     size = lt.size(catalog['directores'])
     repetido= 0
     if size:
@@ -219,7 +223,11 @@ def addDirector (catalog, row):
                 repetido=1
                 
     elif not(size) or repetido==0:
-        d = newDirector (name, movie, average_vote)
+        if average_vote>=6:
+            director['positives']=1
+        else:
+            director['positives']=0
+        d = newDirector (name, movie, average_vote, positives)
         lt.addLast (catalog['directores'], d)
 
 
@@ -271,28 +279,6 @@ def addGenre(catalog, row):
 
 # Funciones de consulta
 
-def getMoviesByCriteria (catalog, name, criteria):
-    """
-    Retorna una lista de diccionarios cuyo valor de "name" incluye el nombre que se busca
-    (a partir del nombre del director, del actor o del género)
-    """
-    movies=lt.newList("ARRAY_LIST")
-
-    if criteria ==1:
-        rama="directores"
-    elif criteria == 2:
-        rama="actores"
-    elif criteria == 3:
-        rama="generos"
-    
-    iterator = it.newIterator(catalog[rama])
-    while  it.hasNext(iterator):
-        element = it.next(iterator)
-        if name in element["name"]:
-            lt.addLast(movies,element)
-
-    return(movies)
-
 def getMoviesByDirector (catalog, name):
     movies=lt.newList("ARRAY_LIST")
     iterator = it.newIterator(catalog["directores"])
@@ -303,6 +289,16 @@ def getMoviesByDirector (catalog, name):
             director={'director':element['name'],"películas":element['movies'], 'cantidad':size, "prom":element['average']}
             lt.addLast(movies,director)
     return movies
+
+def getPositivesByDirector (catalog, name):
+    positives=lt.newList("ARRAY_LIST")
+    iterator = it.newIterator(catalog["directores"])
+    while  it.hasNext(iterator):
+        element = it.next(iterator)
+        if name in element["name"]:
+            director={'director':element['name'],"positive_votes":element['positives']}
+            lt.addLast(positives,director)
+    return positives
 
 def getBestMovies (catalog, number, criteria):
     if criteria=="average":           
@@ -323,10 +319,3 @@ def getWorstMovies (catalog, number, criteria):
     pos=size-number
     worstmovies = lt.subList(movies, pos, number)
     return worstmovies
-
-def getPositiveVotes (peliculas):
-    positivos = 0
-    for movie in peliculas:
-        if movie["vote_average"]>=6:
-            positivos+=1
-    return positivos
