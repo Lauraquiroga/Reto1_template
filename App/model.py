@@ -259,6 +259,7 @@ def addGenre(catalog, row):
     name=row['genres']
     movie= row['title']
     average_vote= row['vote_average']
+    repetido=0
     size = lt.size(catalog['genres'])
     if size:
         iterator = it.newIterator(catalog['genres'])
@@ -266,13 +267,12 @@ def addGenre(catalog, row):
             genre = it.next(iterator)
 
             if name == genre['genre']:
+                repetido=1
                 updateGenre(genre, movie, average_vote)
-            else:
-                g = newGenre (name, movie, average_vote)
-                lt.addLast (catalog['genres'], g)
+            
                 
-    else:
-        g = newGenre (row['genres'], movie, average_vote)
+    elif not(size) or repetido==0:
+        g = newGenre (name, movie, average_vote)
         lt.addLast (catalog['genres'], g)
     
 
